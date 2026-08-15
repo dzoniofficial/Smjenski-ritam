@@ -2,8 +2,20 @@
 <html lang="hr">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
     <title>Smjenski ritam</title>
+    <meta name="description" content="Planer za smjenski rad — san, svjetlo i kofein prilagođeni tvom rasporedu." />
+
+    <link rel="manifest" href="/manifest.json" />
+    <meta name="theme-color" content="#05070D" />
+
+    <link rel="icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAAEAUlEQVR4nO3dsXHUQACFYZ0HjyPTgUmpwREVUAA5RdAIROQUQAVEJMyQk1KCI48DE2B7zvbdWTqttFq97ytAp+D9Wt3hGTbdwpyend/Wvgemc3N9tal9D9uq3oyx03V1o5j9g42eQ+aOYbYPM3yGmCuEyT/E8Blj6hAmu7jhU9JUIRS/qOEzpdIhnJS8mPEztdIbK1KT4VNDidNg9Alg/NRSYnujAjB+ahu7waMDMH6WYswWjwrA+FmaYzc5OADjZ6mO2eagAIyfpRu60d4BGD+tGLLVXgEYP63pu9kXAzB+WtVnu0X/FAJaczAAT39a99KG9wZg/KzFoS17BSLazgA8/VmbfZt2AhDtWQCe/qzVrm07AYj2KABPf9bu6cadAER7CMDTnxTbW3cCEE0ARDvpOq8/5LnfvBOAaAIgmgCIJgCibXwBJpkTgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCI9qrWB795+67WR+/09cf3Sa//8d374tf8/el18Wtuu/x8Men1n/rz68usn9d1TgDCCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGgCIJoAiCYAogmAaAIgmgCIJgCiCYBoAiCaAIgmAKIJgGib07Pz29o3AbU4AYgmAKIJgGgCIJoAiFbtP8lbqg9/f9a+hV6+XVzWvoVVcAJsaWX8XdfWvS6ZAO60OKgW73lpBEA0ARBNAHda/FLZ4j0vjQC2tDSolu51yfwxHNGcAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRANAEQTQBEEwDRBEA0ARBNAEQTANEEQDQBEE0ARBMA0QRAtJOb66tN7ZuAGm6urzZOAKIJgGgCIJoAiHbSdf+/DNS+EZjT/eadAEQTANEeAvAaRIrtrTsBiPYoAKcAa/d0404Aoj0LwCnAWu3athOAaDsDcAqwNvs27QQg2t4AnAKsxaEtHzwBREDrXtqwVyCivRiAU4BW9dlurxNABLSm72Z7vwKJgFYM2eqg7wAiYOmGbnTwl2ARsFTHbPOoX4FEwNIcu8mjfwYVAUsxZouj/h1ABNQ2doOj/yFMBNRSYntFx3t6dn5b8nqwS8mHbtE/hXAaMLXSG5tssE4DSprq4Tr5E1sIjDH1W8VsryxCYIi5Xqdnf2cXAofM/T2y6pdWMdB1dX88WdyvNqJYt6X9UvgPK17li84ieikAAAAASUVORK5CYII=" type="image/png" />
+    <link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAACf0lEQVR4nO3drU0EURSA0YFAUNDBYqkBtRVQAJ4iaAQUngKoAIUhwWMpZLGEgNufN9+cU8B9V3y5ySaT7NHp2flmgojjQy8A2yRoUgRNiqBJETQpgiZF0KQImhRBkyJoUgRNiqBJETQpgiZF0KQImhRBkyJoUgRNiqBJETQpgiZF0KQImhRBkyJoUgRNiqBJETQpgiZF0KQImhRBkyJoUgRNiqBJETQpgiZF0KQImhRBkyJoUgRNiqBJETQpgiZF0KQImhRBkyJoUgRNiqBJETQpgiZF0KQImhRBkyJoUk72/eDl1XrfT/7p6fVlZ7Pv1jdbm/Vxf7G1Wb9dP6x2Nvunz/fHvbwzTS40MYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFKOTs/ONwddArbFhSZF0KQImhRBkyJoUvb+lxSjuf16O/QK/3peXR96hdlZ9IUeeYbJ34+I1F8QREinjSJoUQZOy2KDnEstc9hzFYoOmSdCkLDbouXzhmsueo1hs0NM0fiyj7zciHyeRsugLTY+gSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYIm5RsAhm/IBqo19wAAAABJRU5ErkJggg==" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <meta name="apple-mobile-web-app-title" content="Smjenski ritam" />
+    <meta name="mobile-web-app-capable" content="yes" />
+
     <script src="https://cdn.tailwindcss.com"></script>
   </head>
   <body>
