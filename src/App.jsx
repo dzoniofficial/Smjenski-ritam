@@ -23,6 +23,9 @@ const C = {
 
 const OFF_ID = "off";
 const OFF_DEFAULT_WAKE = 6.5;
+const FREE_DAY_LIMIT = 7;
+const FREE_SHIFT_LIMIT = 2;
+const PRO_LINK = "https://buy.stripe.com/cNi8wOdP82368yX4nEe7m00";
 
 function mod24(h) {
   return ((h % 24) + 24) % 24;
@@ -227,12 +230,18 @@ function InfoBit({ icon, color, label, value, note }) {
 }
 
 function ShiftDefsEditor({ shiftDefs, setShiftDefs }) {
+  const [showUpsell, setShowUpsell] = useState(false);
   const updateName = (id, name) => setShiftDefs((defs) => defs.map((d) => (d.id === id ? { ...d, name } : d)));
   const updateStart = (id, val) => setShiftDefs((defs) => defs.map((d) => (d.id === id ? { ...d, start: timeInputToDec(val) } : d)));
   const updateEnd = (id, val) => setShiftDefs((defs) => defs.map((d) => (d.id === id ? { ...d, end: timeInputToDec(val) } : d)));
   const removeDef = (id) => setShiftDefs((defs) => (defs.length <= 1 ? defs : defs.filter((d) => d.id !== id)));
-  const addDef = () =>
-    setShiftDefs((defs) => (defs.length >= 30 ? defs : [...defs, { id: "s" + Date.now(), name: `Smjena ${defs.length + 1}`, start: 7, end: 19 }]));
+  const addDef = () => {
+    if (shiftDefs.length >= FREE_SHIFT_LIMIT) {
+      setShowUpsell(true);
+      return;
+    }
+    setShiftDefs((defs) => [...defs, { id: "s" + Date.now(), name: `Smjena ${defs.length + 1}`, start: 7, end: 19 }]);
+  };
 
   return (
     <div className="rounded-2xl p-4 mb-5" style={{ background: C.surface, border: `1px solid ${C.border}` }}>
@@ -273,7 +282,7 @@ function ShiftDefsEditor({ shiftDefs, setShiftDefs }) {
               <span className="text-xs" style={{ color: C.textMuted, fontFamily: "'IBM Plex Mono', monospace" }}>
                 ({duration % 1 === 0 ? duration : duration.toFixed(1)}h)
               </span>
-              <button onClick={() => removeDef(d.id)} className="p-1 rounded-lg" style={{ opacity: shiftDefs.length <= 1 ? 0.3 : 1 }} aria-label="Ukloni smjenu" disabled={shiftDefs.length <= 1}>
+              <button onClick={() => removeDef(d.id)} className="p-1 rounded-lg" style={{ opacity: shiftDefs.length <= 1 ? 0.3 : 1 }} aria-label="Ukloni smenu" disabled={shiftDefs.length <= 1}>
                 <Trash2 size={14} color={C.textMuted} />
               </button>
             </div>
@@ -283,11 +292,19 @@ function ShiftDefsEditor({ shiftDefs, setShiftDefs }) {
       <button
         onClick={addDef}
         className="flex items-center gap-1 mt-3 text-xs font-semibold px-3 py-1.5 rounded-lg"
-        style={{ background: C.surface2, color: C.textPrimary, opacity: shiftDefs.length >= 30 ? 0.4 : 1 }}
-        disabled={shiftDefs.length >= 30}
+        style={{ background: C.surface2, color: C.textPrimary }}
       >
         <Plus size={13} /> Nova smjena
       </button>
+      {showUpsell && (
+        <div className="mt-2 p-2.5 rounded-lg text-xs" style={{ background: "rgba(94,234,212,0.08)", border: `1px solid ${C.shiftBar}`, color: C.textPrimary }}>
+          Besplatna verzija ima {FREE_SHIFT_LIMIT} tipa smjene.{" "}
+          <a href={PRO_LINK} target="_blank" rel="noopener noreferrer" style={{ color: C.shiftBar, fontWeight: 700, textDecoration: "underline" }}>
+            Nadogradi na Pro
+          </a>{" "}
+          za neograničeno.
+        </div>
+      )}
     </div>
   );
 }
@@ -303,7 +320,14 @@ function ScheduleEditor({ days, setDays, shiftDefs }) {
       return next;
     });
   };
-  const addDay = () => setDays((d) => (d.length >= 30 ? d : [...d, { shiftId: OFF_ID }]));
+  const [showDayUpsell, setShowDayUpsell] = useState(false);
+  const addDay = () => {
+    if (days.length >= FREE_DAY_LIMIT) {
+      setShowDayUpsell(true);
+      return;
+    }
+    setDays((d) => [...d, { shiftId: OFF_ID }]);
+  };
   const removeDay = () => setDays((d) => (d.length <= 2 ? d : d.slice(0, -1)));
 
   const colorFor = (shiftId, i) => {
@@ -341,6 +365,15 @@ function ScheduleEditor({ days, setDays, shiftDefs }) {
           </button>
         ))}
       </div>
+      {showDayUpsell && (
+        <div className="mt-3 p-2.5 rounded-lg text-xs" style={{ background: "rgba(94,234,212,0.08)", border: `1px solid ${C.shiftBar}`, color: C.textPrimary }}>
+          Besplatna verzija ide do {FREE_DAY_LIMIT} dana.{" "}
+          <a href={PRO_LINK} target="_blank" rel="noopener noreferrer" style={{ color: C.shiftBar, fontWeight: 700, textDecoration: "underline" }}>
+            Nadogradi na Pro
+          </a>{" "}
+          za do 30 dana.
+        </div>
+      )}
     </div>
   );
 }
